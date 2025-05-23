@@ -2,19 +2,30 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Event;
+use App\Models\Recipient;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventReminderMail;
 use Tests\TestCase;
 
 class EventReminderTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    public function test_reminders_are_sent()
     {
-        $response = $this->get('/');
+        Mail::fake();
 
-        $response->assertStatus(200);
+        $event = Event::factory()->create([
+            'event_date' => now()->addDays(15),
+        ]);
+
+        $recipient = Recipient::factory()->create(['active' => true]);
+        $event->recipients()->attach($recipient);
+
+        $this->artisan('reminders:send')
+            ->assertExitCode(0);
+
+        Mail::assertSent(EventReminderMail::class, function ($mail) use ($recipient) {
+            return $mail->recipient->id === $recipient->id;
+        });
     }
 }
