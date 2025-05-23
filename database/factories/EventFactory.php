@@ -17,7 +17,10 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->sentence(3),
+            'event_date' => $this->faker->dateTimeBetween('now', '+30 days'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
