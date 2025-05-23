@@ -20,8 +20,6 @@ class EventRecipientFactory extends Factory
             'recipient_id' => Recipient::factory(),
             'reminder_sent' => false,
             'reminder_sent_at' => null,
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }
