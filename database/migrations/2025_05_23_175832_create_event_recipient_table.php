@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_recipient', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('recipient_id')->constrained()->cascadeOnDelete();
+            $table->boolean('reminder_sent')->default(false);
+            $table->timestamp('reminder_sent_at')->nullable();
+            $table->primary(['event_id', 'recipient_id']);
         });
     }
 
