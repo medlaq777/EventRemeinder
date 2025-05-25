@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Recipient extends Model
 {
-    use Notifiable;
+    use Notifiable, HasFactory;
 
     public function events(): BelongsToMany
     {
