@@ -10,6 +10,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    ->withSchedule(require __DIR__.'/../routes/schedule.php') // <-- use the new file
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
