@@ -23,8 +23,6 @@ class EventReminderNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject("Reminder: {$this->event->title} is in 15 days!")
-            ->line("The event '{$this->event->title}' is happening on {$this->event->start_date->format('F j, Y')}.")
-            ->action('View Event', url('/events/' . $this->event->id))
-            ->line('Thank you for using our service!');
+            ->view('emails.event_reminder', ['event' => $this->event]);
     }
 }

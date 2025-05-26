@@ -28,6 +28,6 @@ class SendEventReminders extends Command
         }
 
         $this->info('All reminders sent successfully!');
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }
